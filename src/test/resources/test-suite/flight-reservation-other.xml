@@ -1,0 +1,50 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd" >
+<suite name="flight-reservation" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="com.yenpractice.listener.MethodListener"/>
+    </listeners>
+    <test name="flight-reservation-test">
+      <!--  <parameter name="url" value="https://d1uh9e7cu07ukd.cloudfront.net/selenium-docker/reservation-app/index.html"/> -->
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.yenpractice.reservationflight.FlightReservationTest">
+                <methods>
+                    <include name="test">
+                        <parameter name="customerDataPath"
+                                   value="data/customer_A.json"/>
+                        <parameter name="flightDataPath"
+                                   value="data/flight_customer_A.json"/>
+                    </include>
+                    <include name="testOtherCustomer">
+                        <parameter name="customerDataPath"
+                                   value="data/customer_B.json"/>
+                        <parameter name="flightDataPath"
+                                   value="data/flight_customer_B.json"/>
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="flight-reservation-test1">
+     <!--   <parameter name="url" value="https://d1uh9e7cu07ukd.cloudfront.net/selenium-docker/reservation-app/index.html"/> -->
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.yenpractice.reservationflight.FlightReservationTest">
+                <methods>
+                    <include name="test">
+                        <parameter name="customerDataPath"
+                                   value="data/customer_A.json"/>
+                        <parameter name="flightDataPath"
+                                   value="data/flight_customer_A.json"/>
+                    </include>
+                    <include name="testOtherCustomer">
+                        <parameter name="customerDataPath"
+                                   value="data/customer_A.json"/>
+                        <parameter name="flightDataPath"
+                                   value="data/flight_customer_A.json"/>
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

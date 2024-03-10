@@ -1,0 +1,9 @@
+{
+  "passengers" : "Two",
+  "departureFrom" : "New York",
+  "arriveIn" : "London",
+  "departure" : "ba-business",
+  "arrival" : "ba-business",
+  "tax" : "$89 USD",
+  "totlaPrice" : "$1169 USD"
+}

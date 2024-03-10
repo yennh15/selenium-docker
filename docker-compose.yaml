@@ -1,0 +1,42 @@
+version: "3"
+services:
+  hub:
+    image: seleniarm/hub:4.10
+    ports:
+    - 4444:4444
+  chrome:
+    image: seleniarm/node-chromium:4.16
+    shm_size: '2g'
+    depends_on:
+    - hub
+    deploy: 
+       replicas: 1
+    environment:
+    - SE_EVENT_BUS_HOST=hub
+    - SE_EVENT_BUS_PUBLISH_PORT=4442
+    - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    - SE_NODE_MAX_SESSIONS=4
+  firefox:
+    image: seleniarm/node-firefox:4.16
+    shm_size : '2g'
+    depends_on:
+    - hub
+    deploy: 
+      replicas: 2
+    environment:
+    - SE_EVENT_BUS_HOST=hub
+    - SE_EVENT_BUS_PUBLISH_PORT=4442
+    - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    - SE_NODE_MAX_SESSIONS=2
+  flight-reservation:
+    image: yennguyen412/selenium
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - HUB_HOST=hub
+      - ENV=qa
+      - THREAD_COUNT=3
+      - TEST_SUITE=flight-reservation.xml
+    volumes:
+      - ./output/flight-resvervation:/home/selenium-docker/test-output
